@@ -1,4 +1,4 @@
 from robot import SkidBot
 
 bot = SkidBot()
-bot.path_1()
+bot.path_2()

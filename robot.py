@@ -89,3 +89,34 @@ class SkidBot():
 
         plt.plot(x_path, y_path)
         plt.show()
+
+
+    def path_2(self):
+        '''
+        Draws a 5x5 m square
+        '''
+
+        #assume our initial heading is facing right
+        self.theta = 0
+        # motion paths
+        x_path = [0]
+        y_path = [0]
+
+        for i in range(1):
+            for j in range(10):
+                self.update_phi(-1,1)
+                self.set_global_x(-1,1)
+                self.set_global_y(-1, 1)
+                x_path.append(self.global_x)
+                y_path.append(self.global_y)
+
+        for i in range(1):
+            for j in range(10):
+                self.update_phi(1,1)
+                self.set_global_x(1,1)
+                self.set_global_y(1, 1)
+                x_path.append(self.global_x)
+                y_path.append(self.global_y)
+        print(f"THETA: {self.theta}")
+        plt.plot(x_path, y_path)
+        plt.show()
