@@ -29,10 +29,10 @@ class SkidBot():
         self.global_y += np.multiply(np.divide(v_right + v_left, 2), np.cos(self.theta)) * self.delta_time
 
     def update_phi(self, v_left, v_right):
-        self.theta += np.multiply(np.divide(v_right - v_left, self.width), np.divide(np.pi, 180)) * self.delta_time
+        self.theta += np.divide(v_right - v_left, self.width) * self.delta_time
 
     def set_theta(self, v_left, v_right):
-        self.theta = np.multiply(np.divide(v_right - v_left, self.width), np.divide(np.pi, 180))
+        self.theta = np.divide(v_right - v_left, self.width)
 
     def get_global_pos(self):
         return (self.global_x, self.global_y)
@@ -48,7 +48,7 @@ class SkidBot():
                 x_path.append(self.global_x)
                 y_path.append(self.global_y)
 
-        self.set_theta(-1, -1.5)
+
         for i_1 in range(3):
             for j_2 in range(10):
                 self.update_phi(-1,-1.5)
@@ -58,7 +58,7 @@ class SkidBot():
                 y_path.append(self.global_y)
 
 
-        self.set_theta(.8, -2)
+
         for i_1 in range(8):
             for j_2 in range(10):
                 self.update_phi(.8,-2)
@@ -68,7 +68,7 @@ class SkidBot():
                 y_path.append(self.global_y)
 
 
-        self.set_theta(2, 2)
+
         for i_1 in range(10):
             for j_2 in range(10):
                 self.update_phi(2,2)
