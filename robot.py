@@ -37,6 +37,16 @@ class SkidBot():
     def get_global_pos(self):
         return (self.global_x, self.global_y)
 
+    def reset_to_start(self):
+        # PHYSICS INITS
+        self.global_x = 0
+        self.global_y = 0
+        self.global_phi = 0
+        self.x = 0
+        self.y = 0
+        self.theta = 0
+        self.delta_time = .10
+
     def path_1(self):
         x_path = [0]
         y_path = [0]
