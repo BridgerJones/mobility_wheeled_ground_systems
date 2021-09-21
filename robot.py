@@ -19,17 +19,63 @@ class SkidBot():
         self.y = 0
         self.theta = 0
         self.delta_time = .10
-        
+
 
 
     def set_global_x(self, v_left, v_right):
-        self.global_x += -np.multiply(np.divide(v_right + v_left, 2), np.sin(self.get_phi(v_left, v_right)))
+        self.global_x += -np.multiply(np.divide(v_right + v_left, 2), np.sin(self.theta)) * self.delta_time
 
     def set_global_y(self, v_left, v_right):
-        self.global_y += np.multiply(np.divide(v_right + v_left, 2), np.cos(self.get_phi(v_left, v_right)))
+        self.global_y += np.multiply(np.divide(v_right + v_left, 2), np.cos(self.theta)) * self.delta_time
 
-    def get_phi(self, v_left, v_right):
-        return np.multiply(np.divide(v_right - v_left, self.width), np.divide(np.pi, 180))
+    def update_phi(self, v_left, v_right):
+        self.theta += np.multiply(np.divide(v_right - v_left, self.width), np.divide(np.pi, 180)) * self.delta_time
+
+    def set_theta(self, v_left, v_right):
+        self.theta = np.multiply(np.divide(v_right - v_left, self.width), np.divide(np.pi, 180))
 
     def get_global_pos(self):
         return (self.global_x, self.global_y)
+
+    def path_1(self):
+        x_path = [0]
+        y_path = [0]
+        for i in range(5):
+            for j in range(10):
+                self.update_phi(1,1.5)
+                self.set_global_x(1, 1.5)
+                self.set_global_y(1, 1.5)
+                x_path.append(self.global_x)
+                y_path.append(self.global_y)
+
+        self.set_theta(-1, -1.5)
+        for i_1 in range(3):
+            for j_2 in range(10):
+                self.update_phi(-1,-1.5)
+                self.set_global_x(-1, -1.5)
+                self.set_global_y(-1, -1.5)
+                x_path.append(self.global_x)
+                y_path.append(self.global_y)
+
+
+        self.set_theta(.8, -2)
+        for i_1 in range(8):
+            for j_2 in range(10):
+                self.update_phi(.8,-2)
+                self.set_global_x(.8, -2)
+                self.set_global_y(.8, -2)
+                x_path.append(self.global_x)
+                y_path.append(self.global_y)
+
+
+        self.set_theta(2, 2)
+        for i_1 in range(10):
+            for j_2 in range(10):
+                self.update_phi(2,2)
+                self.set_global_x(2, 2)
+                self.set_global_y(2, 2)
+                x_path.append(self.global_x)
+                y_path.append(self.global_y)
+
+        plt.plot(x_path, y_path)
+        plt.show()
