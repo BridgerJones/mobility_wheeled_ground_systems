@@ -37,6 +37,10 @@ class SkidBot():
     def get_global_pos(self):
         return (self.global_x, self.global_y)
 
+    def calculate_turn(self, radius, phi):
+        return phi*(radius - self.width/2), phi*(radius + self.width/2)
+
+
     def reset_to_start(self):
         # PHYSICS INITS
         self.global_x = 0
@@ -102,19 +106,26 @@ class SkidBot():
         x_path = [0]
         y_path = [0]
 
-        for i in range(1):
-            for j in range(10):
-                self.update_phi(-1,1)
-                self.set_global_x(-1,1)
-                self.set_global_y(-1, 1)
-                x_path.append(self.global_x)
-                y_path.append(self.global_y)
+        turn_radius = 0
+        desired_heading = np.pi / 2
+        v_left, v_right = self.calculate_turn(turn_radius, desired_heading)
+        print(f"vleft: {v_left}, vright: {v_right}")
 
-        for i in range(1):
+        # go forward 5 meters
+        for i in range(4):
             for j in range(10):
                 self.update_phi(1,1)
                 self.set_global_x(1,1)
                 self.set_global_y(1, 1)
+                x_path.append(self.global_x)
+                y_path.append(self.global_y)
+
+        # go forward 5 meters
+        for i in range(1):
+            for j in range(10):
+                self.update_phi(v_left, v_right)
+                self.set_global_x(v_left, v_right)
+                self.set_global_y(v_left,  v_right)
                 x_path.append(self.global_x)
                 y_path.append(self.global_y)
         print(f"THETA: {self.theta}")
