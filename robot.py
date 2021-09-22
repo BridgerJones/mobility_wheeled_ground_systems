@@ -19,6 +19,8 @@ class SkidBot():
         self.y = 0
         self.theta = 0
         self.delta_time = .10
+        self.x_path = [0]
+        self.y_path = [0]
 
 
 
@@ -40,6 +42,40 @@ class SkidBot():
     def calculate_turn(self, radius, phi):
         return phi*(radius - self.width/2), phi*(radius + self.width/2)
 
+    def move_forward(self, meters, velocity):
+        for i_1 in range(meters):
+            for j_2 in range(10):
+                self.update_phi(velocity,velocity)
+                self.set_global_x(velocity, velocity)
+                self.set_global_y(velocity, velocity)
+                print(f"x: {self.global_x}, y: {self.global_y}")
+                self.x_path.append(self.global_x)
+                self.y_path.append(self.global_y)
+
+    def turn_right(self, radius, final_heading):
+        v_left, v_right = self.calculate_turn(radius, final_heading)
+        print(f"v_left: {v_left}, v_right: {v_right}")
+        for i_1 in range(1):
+            for j_2 in range(10):
+                self.update_phi(v_right, v_left)
+                self.set_global_x(v_right, v_left)
+                self.set_global_y(v_right, v_left)
+                print(f"x: {self.global_x}, y: {self.global_y}")
+                self.x_path.append(self.global_x)
+                self.y_path.append(self.global_y)
+
+
+    def turn_left(self, radius, final_heading):
+        v_left, v_right = self.calculate_turn(radius, final_heading)
+        print(f"v_left: {v_left}, v_right: {v_right}")
+        for i_1 in range(1):
+            for j_2 in range(10):
+                self.update_phi(v_left, v_right)
+                self.set_global_x(v_left, v_right)
+                self.set_global_y(v_left, v_right)
+                print(f"x: {self.global_x}, y: {self.global_y}")
+                self.x_path.append(self.global_x)
+                self.y_path.append(self.global_y)
 
     def reset_to_start(self):
         # PHYSICS INITS
@@ -52,15 +88,15 @@ class SkidBot():
         self.delta_time = .10
 
     def path_1(self):
-        x_path = [0]
-        y_path = [0]
+        self.x_path = [0]
+        self.y_path = [0]
         for i in range(5):
             for j in range(10):
                 self.update_phi(1,1.5)
                 self.set_global_x(1, 1.5)
                 self.set_global_y(1, 1.5)
-                x_path.append(self.global_x)
-                y_path.append(self.global_y)
+                self.x_path.append(self.global_x)
+                self.y_path.append(self.global_y)
 
 
         for i_1 in range(3):
@@ -68,8 +104,8 @@ class SkidBot():
                 self.update_phi(-1,-1.5)
                 self.set_global_x(-1, -1.5)
                 self.set_global_y(-1, -1.5)
-                x_path.append(self.global_x)
-                y_path.append(self.global_y)
+                self.x_path.append(self.global_x)
+                self.y_path.append(self.global_y)
 
 
 
@@ -78,8 +114,8 @@ class SkidBot():
                 self.update_phi(.8,-2)
                 self.set_global_x(.8, -2)
                 self.set_global_y(.8, -2)
-                x_path.append(self.global_x)
-                y_path.append(self.global_y)
+                self.x_path.append(self.global_x)
+                self.y_path.append(self.global_y)
 
 
 
@@ -88,46 +124,32 @@ class SkidBot():
                 self.update_phi(2,2)
                 self.set_global_x(2, 2)
                 self.set_global_y(2, 2)
-                x_path.append(self.global_x)
-                y_path.append(self.global_y)
+                self.x_path.append(self.global_x)
+                self.y_path.append(self.global_y)
 
-        plt.plot(x_path, y_path)
+        plt.plot(self.x_path, self.y_path)
         plt.show()
-
-
     def path_2(self):
         '''
-        Draws a 5x5 m square
+        Covers a 5x5 m square
         '''
 
         #assume our initial heading is facing right
         self.theta = 0
         # motion paths
-        x_path = [0]
-        y_path = [0]
 
-        turn_radius = 0
-        desired_heading = np.pi / 2
-        v_left, v_right = self.calculate_turn(turn_radius, desired_heading)
-        print(f"vleft: {v_left}, vright: {v_right}")
+        self.move_forward(5, 1)
+        self.turn_left(.5, np.pi)
+        self.move_forward(5, 1)
+        self.turn_right(.5, np.pi)
+        self.move_forward(5, 1)
+        self.turn_left(.5, np.pi)
+        self.move_forward(5, 1)
+        self.turn_right(.5, np.pi)
+        self.move_forward(5, 1)
+        self.turn_left(.5, np.pi)
+        self.move_forward(5, 1)
 
-        # go forward 5 meters
-        for i in range(4):
-            for j in range(10):
-                self.update_phi(1,1)
-                self.set_global_x(1,1)
-                self.set_global_y(1, 1)
-                x_path.append(self.global_x)
-                y_path.append(self.global_y)
 
-        # go forward 5 meters
-        for i in range(1):
-            for j in range(10):
-                self.update_phi(v_left, v_right)
-                self.set_global_x(v_left, v_right)
-                self.set_global_y(v_left,  v_right)
-                x_path.append(self.global_x)
-                y_path.append(self.global_y)
-        print(f"THETA: {self.theta}")
-        plt.plot(x_path, y_path)
+        plt.plot(self.x_path, self.y_path)
         plt.show()
