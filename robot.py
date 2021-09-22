@@ -137,17 +137,17 @@ class SkidBot():
         #assume our initial heading is facing right
         self.theta = 0
         # motion paths
-
+        turn_radius = .5
         self.move_forward(5, 1)
-        self.turn_left(.5, np.pi)
+        self.turn_left(turn_radius, np.pi)
         self.move_forward(5, 1)
-        self.turn_right(.5, np.pi)
+        self.turn_right(turn_radius, np.pi)
         self.move_forward(5, 1)
-        self.turn_left(.5, np.pi)
+        self.turn_left(turn_radius, np.pi)
         self.move_forward(5, 1)
-        self.turn_right(.5, np.pi)
+        self.turn_right(turn_radius, np.pi)
         self.move_forward(5, 1)
-        self.turn_left(.5, np.pi)
+        self.turn_left(turn_radius, np.pi)
         self.move_forward(5, 1)
 
 
