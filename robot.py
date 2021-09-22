@@ -8,7 +8,7 @@ class SkidBot():
     def __init__(self):
         self.width = .30
         self.height = .50
-        self.scale = .10
+        self.scale = .100
         self.units = "METERS"
 
         # PHYSICS INITS
@@ -18,7 +18,7 @@ class SkidBot():
         self.x = 0
         self.y = 0
         self.theta = 0
-        self.delta_time = .10
+        self.delta_time = .01
         self.x_path = [0]
         self.y_path = [0]
 
@@ -44,7 +44,7 @@ class SkidBot():
 
     def move_forward(self, meters, velocity):
         for i_1 in range(meters):
-            for j_2 in range(10):
+            for j_2 in range(100):
                 self.update_phi(velocity,velocity)
                 self.set_global_x(velocity, velocity)
                 self.set_global_y(velocity, velocity)
@@ -56,7 +56,7 @@ class SkidBot():
         v_left, v_right = self.calculate_turn(radius, final_heading)
         print(f"v_left: {v_left}, v_right: {v_right}")
         for i_1 in range(1):
-            for j_2 in range(10):
+            for j_2 in range(100):
                 self.update_phi(v_right, v_left)
                 self.set_global_x(v_right, v_left)
                 self.set_global_y(v_right, v_left)
@@ -69,7 +69,7 @@ class SkidBot():
         v_left, v_right = self.calculate_turn(radius, final_heading)
         print(f"v_left: {v_left}, v_right: {v_right}")
         for i_1 in range(1):
-            for j_2 in range(10):
+            for j_2 in range(100):
                 self.update_phi(v_left, v_right)
                 self.set_global_x(v_left, v_right)
                 self.set_global_y(v_left, v_right)
@@ -85,13 +85,13 @@ class SkidBot():
         self.x = 0
         self.y = 0
         self.theta = 0
-        self.delta_time = .10
+        self.delta_time = .01
 
     def path_1(self):
         self.x_path = [0]
         self.y_path = [0]
         for i in range(5):
-            for j in range(10):
+            for j in range(100):
                 self.update_phi(1,1.5)
                 self.set_global_x(1, 1.5)
                 self.set_global_y(1, 1.5)
@@ -100,7 +100,7 @@ class SkidBot():
 
 
         for i_1 in range(3):
-            for j_2 in range(10):
+            for j_2 in range(100):
                 self.update_phi(-1,-1.5)
                 self.set_global_x(-1, -1.5)
                 self.set_global_y(-1, -1.5)
@@ -110,7 +110,7 @@ class SkidBot():
 
 
         for i_1 in range(8):
-            for j_2 in range(10):
+            for j_2 in range(100):
                 self.update_phi(.8,-2)
                 self.set_global_x(.8, -2)
                 self.set_global_y(.8, -2)
@@ -120,7 +120,7 @@ class SkidBot():
 
 
         for i_1 in range(10):
-            for j_2 in range(10):
+            for j_2 in range(100):
                 self.update_phi(2,2)
                 self.set_global_x(2, 2)
                 self.set_global_y(2, 2)
