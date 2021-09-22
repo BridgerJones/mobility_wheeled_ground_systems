@@ -171,9 +171,27 @@ class SkidBot():
         self.move_forward(1,1)
         self.turn_left_in_place()
 
-        
+        self.move_forward(5,1)
+        self.turn_right_in_place()
+        self.move_forward(1,1)
+        self.turn_right_in_place()
 
+        self.move_forward(5,1)
+        self.turn_left_in_place()
+        self.move_forward(1,1)
+        self.turn_left_in_place()
 
+        self.move_forward(5,1)
+        self.turn_right_in_place()
+        self.move_forward(1,1)
+        self.turn_right_in_place()
+
+        self.move_forward(5,1)
+        self.turn_left_in_place()
+        self.move_forward(1,1)
+        self.turn_left_in_place()
+
+        self.move_forward(5,1)
 
 
 
