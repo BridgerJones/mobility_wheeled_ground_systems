@@ -77,6 +77,33 @@ class SkidBot():
                 self.x_path.append(self.global_x)
                 self.y_path.append(self.global_y)
 
+
+    def turn_left_in_place(self):
+        v_left, v_right = self.calculate_turn(0, np.pi / 2)
+        for i in range(100):
+
+            self.update_phi(v_left, v_right)
+            self.set_global_x(v_left, v_right)
+            self.set_global_y(v_left, v_right)
+            print(f"x: {self.global_x}, y: {self.global_y}")
+            self.x_path.append(self.global_x)
+            self.y_path.append(self.global_y)
+        print(f"PHI: {self.theta}")
+
+
+    def turn_right_in_place(self):
+        v_left, v_right = self.calculate_turn(0, np.pi / 2)
+        for i in range(100):
+
+            self.update_phi(v_right, v_left)
+            self.set_global_x(v_right, v_left)
+            self.set_global_y(v_right, v_left)
+            print(f"x: {self.global_x}, y: {self.global_y}")
+            self.x_path.append(self.global_x)
+            self.y_path.append(self.global_y)
+        print(f"PHI: {self.theta}")
+
+
     def reset_to_start(self):
         # PHYSICS INITS
         self.global_x = 0
@@ -137,18 +164,13 @@ class SkidBot():
         #assume our initial heading is facing right
         self.theta = 0
         # motion paths
-        turn_radius = .5
-        self.move_forward(5, 1)
-        self.turn_left(turn_radius, np.pi)
-        self.move_forward(5, 1)
-        self.turn_right(turn_radius, np.pi)
-        self.move_forward(5, 1)
-        self.turn_left(turn_radius, np.pi)
-        self.move_forward(5, 1)
-        self.turn_right(turn_radius, np.pi)
-        self.move_forward(5, 1)
-        self.turn_left(turn_radius, np.pi)
-        self.move_forward(5, 1)
+        turn_radius = .50
+
+        self.move_forward(5,1)
+        self.turn_right_in_place()
+        self.move_forward(1,1)
+
+
 
 
         plt.plot(self.x_path, self.y_path)
