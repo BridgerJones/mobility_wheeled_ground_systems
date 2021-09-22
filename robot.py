@@ -165,31 +165,17 @@ class SkidBot():
         self.theta = 0
         # motion paths
 
+        for i in range(8):
+            self.move_forward(5,1)
+            self.turn_left_in_place()
+            self.move_forward(1,.3)
+            self.turn_left_in_place()
 
-        self.move_forward(5,1)
-        self.turn_left_in_place()
-        self.move_forward(1,1)
-        self.turn_left_in_place()
+            self.move_forward(5,1)
+            self.turn_right_in_place()
+            self.move_forward(1,.3)
+            self.turn_right_in_place()
 
-        self.move_forward(5,1)
-        self.turn_right_in_place()
-        self.move_forward(1,1)
-        self.turn_right_in_place()
-
-        self.move_forward(5,1)
-        self.turn_left_in_place()
-        self.move_forward(1,1)
-        self.turn_left_in_place()
-
-        self.move_forward(5,1)
-        self.turn_right_in_place()
-        self.move_forward(1,1)
-        self.turn_right_in_place()
-
-        self.move_forward(5,1)
-        self.turn_left_in_place()
-        self.move_forward(1,1)
-        self.turn_left_in_place()
 
         self.move_forward(5,1)
 
