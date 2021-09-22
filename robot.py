@@ -21,6 +21,7 @@ class SkidBot():
         self.delta_time = .01
         self.x_path = [0]
         self.y_path = [0]
+        self.phi_records = [0]
 
 
 
@@ -32,6 +33,7 @@ class SkidBot():
 
     def update_phi(self, v_left, v_right):
         self.theta += np.divide(v_right - v_left, self.width) * self.delta_time
+        self.phi_records.append(self.theta)
 
     def set_theta(self, v_left, v_right):
         self.theta = np.divide(v_right - v_left, self.width)
@@ -154,8 +156,9 @@ class SkidBot():
                 self.x_path.append(self.global_x)
                 self.y_path.append(self.global_y)
 
-        plt.plot(self.x_path, self.y_path)
-        plt.show()
+        self.pyplot_plot()
+
+
     def path_2(self):
         '''
         Covers a 5x5 m square
@@ -181,5 +184,23 @@ class SkidBot():
 
 
 
+    def pyplot_plot(self):
         plt.plot(self.x_path, self.y_path)
         plt.show()
+
+
+    def turtlefy(self):
+
+        turtle.tracer(1,1)
+        turtle.mode("logo")
+        i = 0
+        scale = 70
+        y_offset = 0
+        turtle.speed(0)
+
+        for x in self.x_path:
+            turtle.goto(x * scale, (self.y_path[i] * scale) - y_offset)
+            turtle.setheading(-self.phi_records[i] * (180/np.pi))
+            i += 1
+
+        turtle.done()
