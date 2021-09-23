@@ -1,5 +1,5 @@
 from robot import SkidBot
 
 bot = SkidBot()
-bot.path_2()
-bot.turtlefy()
+bot.path_3()
+bot.plot_stats()

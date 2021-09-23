@@ -23,17 +23,38 @@ class SkidBot():
         self.y_path = [0]
         self.phi_records = [0]
 
+        # STATS
+        self.x_velocities = []
+        self.y_velocities = []
+        self.delta_phi_records = []
+        self.time_axis = list(range(0,13331))
+
 
 
     def set_global_x(self, v_left, v_right):
-        self.global_x += -np.multiply(np.divide(v_right + v_left, 2), np.sin(self.theta)) * self.delta_time
+        delta_x = -np.multiply(np.divide(v_right + v_left, 2), np.sin(self.theta)) * self.delta_time
+        self.x_velocities.append(delta_x)
+        self.global_x += delta_x
 
     def set_global_y(self, v_left, v_right):
-        self.global_y += np.multiply(np.divide(v_right + v_left, 2), np.cos(self.theta)) * self.delta_time
+        delta_y = np.multiply(np.divide(v_right + v_left, 2), np.cos(self.theta)) * self.delta_time
+        self.y_velocities.append(delta_y)
+        self.global_y += delta_y
 
     def update_phi(self, v_left, v_right):
-        self.theta += np.divide(v_right - v_left, self.width) * self.delta_time
+        delta_phi = np.divide(v_right - v_left, self.width) * self.delta_time
+        self.delta_phi_records.append(delta_phi)
+        self.theta += delta_phi
         self.phi_records.append(self.theta)
+
+    def plot_stats(self):
+        plt.plot(self.x_velocities, label="x velocity")
+        plt.plot(self.y_velocities, label="y velocity")
+        plt.plot(self.delta_phi_records, label="angular change")
+        plt.legend()
+        plt.show()
+
+
 
     def set_theta(self, v_left, v_right):
         self.theta = np.divide(v_right - v_left, self.width)
@@ -164,7 +185,6 @@ class SkidBot():
         Covers a 5x5 m square
         '''
 
-        #assume our initial heading is facing right
         self.theta = 0
         # motion paths
 
@@ -182,7 +202,33 @@ class SkidBot():
 
         self.move_forward(5,1)
 
+    def path_3(self):
+        '''
+        Assumes holonomic ability with swedish wheels. This means the bot can move anywhere without
+        change in angle. Each wheel would need an independant motor.
+        '''
 
+        '''
+        Covers a 5x5 m square
+        '''
+
+        self.theta = 0
+        # motion paths
+
+        for i in range(8):
+            self.move_forward(5,1)
+            self.turn_left_in_place()
+            self.move_forward(1,.3)
+            self.turn_left_in_place()
+
+            self.move_forward(5,1)
+            self.turn_right_in_place()
+            self.move_forward(1,.3)
+            self.turn_right_in_place()
+
+
+        self.move_forward(5,1)
+        self.delta_phi_records = np.zeros(len(self.x_velocities))
 
     def pyplot_plot(self):
         plt.plot(self.x_path, self.y_path)
