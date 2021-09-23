@@ -177,7 +177,6 @@ class SkidBot():
                 self.x_path.append(self.global_x)
                 self.y_path.append(self.global_y)
 
-        self.pyplot_plot()
 
 
     def path_2(self):
